@@ -19,14 +19,10 @@ export default function SignUpUserSection({ setValue }) {
   const myForm = useRef();
 
   useEffect(() => {
-    try {
-      if (state.status) {
-        newSucToast("Your account created");
-        myForm.current.reset();
-        router.push("/todos");
-      }
-    } catch (error) {
-      console.log(error);
+    if (state.status) {
+      newSucToast("Your account created");
+      myForm.current.reset();
+      router.push("/todos");
     }
   }, [state]);
 
