@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaInbox, FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import { MdCalendarToday, MdOutlineLogout } from "react-icons/md";
 import { LuCalendarDays } from "react-icons/lu";
 import { IoIosArrowDown } from "react-icons/io";
-import { RiMenuUnfold3Line2 } from "react-icons/ri";
+import { RiMenuUnfold3Line, RiMenuUnfold3Line2 } from "react-icons/ri";
 import { VscSymbolColor } from "react-icons/vsc";
 import { usePathname } from "next/navigation";
 import axios from "axios";
@@ -60,12 +60,12 @@ export default function AppMenu() {
         variant="light"
         radius="full"
         isIconOnly
-        onClick={() => {
+        onPress={() => {
           setIsMenuOpen(!isMenuOpen);
         }}
         className="fixed lg:-top-20 top-2 sm:left-8 left-4 z-[42]"
       >
-        <RiMenuUnfold3Line2
+        <RiMenuUnfold3Line
           className={`text-2xl text-white transition ${
             isMenuOpen ? "rotate-180" : "rotate-0"
           }`}
@@ -96,7 +96,7 @@ export default function AppMenu() {
               </span>
             </Link>
             <Button
-              onClick={LogOutUserHandler}
+              onPress={LogOutUserHandler}
               className="bg-red-500 dark:bg-red-600"
               radius="full"
               isIconOnly
@@ -247,7 +247,7 @@ export default function AppMenu() {
               <div className="w-full mt-1 flex items-center justify-between">
                 <div className="flex gap-1">
                   <Button
-                    onClick={AddProjectHandler}
+                    onPress={AddProjectHandler}
                     color="primary"
                     radius="sm"
                     size="sm"
@@ -255,7 +255,7 @@ export default function AppMenu() {
                     Add
                   </Button>
                   <Button
-                    onClick={() => {
+                    onPress={() => {
                       setIsAddProjectOpen(false);
                       setProjectColor("");
                       setProjectName("");

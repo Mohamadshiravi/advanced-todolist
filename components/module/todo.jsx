@@ -12,7 +12,6 @@ export default function ToDOSection({ body, checked, id, ReRender, color }) {
 
   useEffect(() => {
     setIsChecked(checked);
-    console.log(body, checked);
   }, []);
   return (
     <div className="flex gap-3 items-center justify-between min-h-[50px] border-b hover:border-b-2 border-zinc-200 dark:border-zinc-700 w-full">
@@ -33,7 +32,7 @@ export default function ToDOSection({ body, checked, id, ReRender, color }) {
         </p>
       </label>
       <Button
-        onClick={DeleteTaskHandler}
+        onPress={DeleteTaskHandler}
         isIconOnly
         variant="light"
         radius="full"

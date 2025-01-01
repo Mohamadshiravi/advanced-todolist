@@ -7,8 +7,6 @@ import FormBtn from "../module/form-btn";
 import { newSucToast, newToast } from "@/utils/helper-func";
 import { useRouter } from "next/navigation";
 import { Input } from "@nextui-org/react";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { MdPassword } from "react-icons/md";
 
 export default function SignUpUserSection({ setValue }) {
   const [state, formAction] = useFormState(SignUpUser, {
@@ -21,10 +19,14 @@ export default function SignUpUserSection({ setValue }) {
   const myForm = useRef();
 
   useEffect(() => {
-    if (state.status) {
-      newSucToast("Your account created");
-      myForm.current.reset();
-      router.push("/todos");
+    try {
+      if (state.status) {
+        newSucToast("Your account created");
+        myForm.current.reset();
+        router.push("/todos");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [state]);
 

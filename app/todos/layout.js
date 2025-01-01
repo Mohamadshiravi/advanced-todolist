@@ -1,5 +1,5 @@
+import AppMenu from "@/components/appMenu";
 import AppHeader from "@/components/header";
-import AppMenu from "@/components/menu";
 import IsUserLogedIn from "@/utils/auth/is-user-loged-in";
 import { redirect } from "next/navigation";
 
