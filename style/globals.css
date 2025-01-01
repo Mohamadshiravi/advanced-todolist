@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "roboto-medium";
+  src: url("../public/font/Roboto-Medium.ttf");
+}
+.roboto-medium {
+  font-family: "roboto-medium";
+}
+
+@font-face {
+  font-family: "roboto-regular";
+  src: url("../public/font/Roboto-Regular.ttf");
+}
+.roboto-regular {
+  font-family: "roboto-regular";
+}
+
+@font-face {
+  font-family: "roboto-bold";
+  src: url("../public/font/Roboto-Bold.ttf");
+}
+.roboto-bold {
+  font-family: "roboto-bold";
+}
+
+@font-face {
+  font-family: "roboto-black";
+  src: url("../public/font/Roboto-Black.ttf");
+}
+.roboto-black {
+  font-family: "roboto-black";
+}
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: rgb(224, 223, 223);
+}
+*::-webkit-scrollbar-thumb {
+  width: 3px;
+  height: 3px;
+  background-color: #4c4c4c;
+}
+.swal-button--confirm {
+  transition: all 0.2s;
+  background-color: #ea580c !important;
+}
+.swal-button--confirm:hover {
+  background-color: #aa3f06 !important;
+}
