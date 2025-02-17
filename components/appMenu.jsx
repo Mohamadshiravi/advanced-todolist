@@ -9,7 +9,7 @@ import { RiMenuUnfold3Line, RiMenuUnfold3Line2 } from "react-icons/ri";
 import { VscSymbolColor } from "react-icons/vsc";
 import { usePathname } from "next/navigation";
 import axios from "axios";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 import { newErrorToast, newSucToast, ShowSwal } from "@/utils/helper-func";
 import { AiTwotoneDelete } from "react-icons/ai";
@@ -33,19 +33,20 @@ export default function AppMenu() {
   const path = usePathname();
 
   useEffect(() => {
-    async function fetchUserData() {
-      setLoading(true);
-      const res = await axios.get("/api/project");
-      const theUser = await axios.get("/api/me");
-
-      setDefProject(res.data.defProject);
-      setUserProject(res.data.userProject);
-      setUser(theUser.data.user);
-
-      setLoading(false);
-    }
     fetchUserData();
   }, []);
+
+  async function fetchUserData() {
+    setLoading(true);
+    const res = await axios.get("/api/project");
+    const theUser = await axios.get("/api/me");
+
+    setDefProject(res.data.defProject);
+    setUserProject(res.data.userProject);
+    setUser(theUser.data.user);
+
+    setLoading(false);
+  }
   return (
     <>
       <section
@@ -154,50 +155,20 @@ export default function AppMenu() {
         >
           {loading &&
             Array.from({ length: 5 }).map((e, i) => (
-              <div
-                key={i}
-                className="bg-gray-300 dark:bg-zinc-700 w-full h-[50px] mt-0.5 animate-pulse rounded-md"
-              ></div>
+              <Skeleton key={i} className="w-[160px] h-[50px] rounded-md" />
             ))}
-          {defProject.map((e, i) => (
-            <Link
-              onClick={() => {
-                setIsMenuOpen(false);
-              }}
-              href={`/todos/project/${e._id}`}
-              key={i}
-              className={`${
-                path === `/todos/project/${e._id}` &&
-                "bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white"
-              } flex items-center uppercase dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 gap-3 hover:text-zinc-800 text-base hover:bg-white cursor-pointer py-3 rounded-sm px-3 transition-all`}
-            >
-              <div className="relative w-[10px] h-[10px]">
-                <span
-                  style={{ backgroundColor: e.color }}
-                  className="w-full h-full absolute top-0 animate-ping left-0 rounded-full"
-                ></span>
-                <span
-                  style={{ backgroundColor: e.color }}
-                  className="w-full h-full absolute top-0 left-0 rounded-full"
-                ></span>
-              </div>
-              <span className="font-semibold">{e.name}</span>
-            </Link>
-          ))}
-          {userProject.map((e, i) => (
-            <div
-              key={i}
-              className={`${
-                path === `/todos/project/${e._id}` &&
-                "bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white"
-              } flex items-center justify-between uppercase dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 gap-3 hover:text-zinc-800 text-base hover:bg-white cursor-pointer rounded-sm px-3 transition-all`}
-            >
+          {!loading &&
+            defProject.map((e, i) => (
               <Link
                 onClick={() => {
                   setIsMenuOpen(false);
                 }}
                 href={`/todos/project/${e._id}`}
-                className="flex items-center gap-3 w-full h-full py-3"
+                key={i}
+                className={`${
+                  path === `/todos/project/${e._id}` &&
+                  "bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white"
+                } flex items-center uppercase dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 gap-3 hover:text-zinc-800 text-base hover:bg-white cursor-pointer py-3 rounded-sm px-3 transition-all`}
               >
                 <div className="relative w-[10px] h-[10px]">
                   <span
@@ -211,17 +182,46 @@ export default function AppMenu() {
                 </div>
                 <span className="font-semibold">{e.name}</span>
               </Link>
-              <Button
-                size="sm"
-                onClick={() => DeleteProjectHandler(e._id, e.name)}
-                isIconOnly
-                variant="light"
-                radius="full"
+            ))}
+          {!loading &&
+            userProject.map((e, i) => (
+              <div
+                key={i}
+                className={`${
+                  path === `/todos/project/${e._id}` &&
+                  "bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white"
+                } flex items-center justify-between uppercase dark:text-zinc-300 dark:hover:text-white dark:hover:bg-zinc-800 gap-3 hover:text-zinc-800 text-base hover:bg-white cursor-pointer rounded-sm px-3 transition-all`}
               >
-                <AiTwotoneDelete className="text-xl dark:text-zinc-400" />
-              </Button>
-            </div>
-          ))}
+                <Link
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                  href={`/todos/project/${e._id}`}
+                  className="flex items-center gap-3 w-full h-full py-3"
+                >
+                  <div className="relative w-[10px] h-[10px]">
+                    <span
+                      style={{ backgroundColor: e.color }}
+                      className="w-full h-full absolute top-0 animate-ping left-0 rounded-full"
+                    ></span>
+                    <span
+                      style={{ backgroundColor: e.color }}
+                      className="w-full h-full absolute top-0 left-0 rounded-full"
+                    ></span>
+                  </div>
+                  <span className="font-semibold">{e.name}</span>
+                </Link>
+                <Button
+                  size="sm"
+                  onClick={() => DeleteProjectHandler(e._id, e.name)}
+                  isIconOnly
+                  variant="light"
+                  radius="full"
+                >
+                  <AiTwotoneDelete className="text-xl dark:text-zinc-400" />
+                </Button>
+              </div>
+            ))}
 
           {!isAddProjectOpen && (
             <button
@@ -300,9 +300,10 @@ export default function AppMenu() {
     const res = await axios.post("/api/project", project);
     if (res.status === 201) {
       newSucToast("project Added");
-      setInterval(() => {
-        location.reload();
-      }, 500);
+      fetchUserData();
+      setIsAddProjectOpen(false);
+      setProjectColor("");
+      setProjectName("");
     }
   }
   async function DeleteProjectHandler(id, name) {
@@ -315,9 +316,10 @@ export default function AppMenu() {
       const res = await axios.delete(`/api/project/${id}`);
       if (res.status === 200) {
         newSucToast("project Deleted");
-        setInterval(() => {
-          location.href = "/todos";
-        }, 500);
+        fetchUserData();
+        setIsAddProjectOpen(false);
+        setProjectColor("");
+        setProjectName("");
       }
     }
   }

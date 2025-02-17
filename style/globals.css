@@ -48,8 +48,10 @@
 }
 .swal-button--confirm {
   transition: all 0.2s;
-  background-color: #ea580c !important;
+  background-color: #4f4f4f !important;
+  box-shadow: none !important;
 }
 .swal-button--confirm:hover {
-  background-color: #aa3f06 !important;
+  background-color: #2a2a2a !important;
+  box-shadow: none !important;
 }

@@ -113,7 +113,7 @@ export default function AddTodoForm({
           <div className="flex items-center justify-between mt-3">
             <div className="flex items-center gap-2">
               <Button
-                onClick={AddTaskHandler}
+                onPress={AddTaskHandler}
                 color={color ? "primary" : "secondary"}
                 radius="sm"
                 className="sm:px-10"
@@ -121,7 +121,7 @@ export default function AddTodoForm({
                 Add Task
               </Button>
               <Button
-                onClick={() => {
+                onPress={() => {
                   setIsFormOpen(false);
                   setProject(null);
                   setCategori(null);
